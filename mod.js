@@ -135,27 +135,35 @@ module.exports = {
             let originalNextLinks = archive.mspa.story[pageString].next
             let originalNextLink
 
+            let hideFirstLinkWithCSS = false
+
             if (tereziRetconPage)
               originalNextLink = originalNextLinks.length == 2 ? archive.mspa.story[pageString].next[1] : false
             else
               originalNextLink = originalNextLinks.length == 1 ? archive.mspa.story[pageString].next[0] : false
 
-            if (hideOriginalLink && !x2ComboLeftPage) {
-              for (let j = 0; j < pageLinkDataList.length; j++) {
-                let linkData = pageLinkDataList[j]
+            for (let j = 0; j < pageLinkDataList.length; j++) {
+              let linkData = pageLinkDataList[j]
 
-                // if character group is not hidden, add character's next links
-                if (!api.store.get(povData.groups[linkData[3]])) {
-                  if (!linkData[4][0]) linkData[4][0] = [parseInt(pageString)]
-                  for (let k = 0; k < linkData[4].length; k++) {
-                    characterNextLinks.push(toPageString(linkData[4][k][0]))
-                  }
+              // if character group is not hidden, add character's next links
+              if (!api.store.get(povData.groups[linkData[3]])) {
+                if (!linkData[4][0]) linkData[4][0] = [parseInt(pageString)]
+                for (let k = 0; k < linkData[4].length; k++) {
+                  characterNextLinks.push(toPageString(linkData[4][k][0]))
                 }
               }
+            }
 
-              // Remove original next link if it's the same as a character's
-              if (characterNextLinks.includes(originalNextLink) && pageString != 7825) // End of A6A5A1x2, kbd right arrow goes to top of array(?)
-                archive.mspa.story[pageString].next.pop()
+            // Remove original  next link if it  matches a character's
+            // next link.  We do this  so pressing the right arrow key
+            // on the keyboard will go to  the next page when only one
+            // link is  shown instead  of doing nothing  because there
+            // are two links.  For x2Combo, we just hide the link with
+            // CSS instead because the right  arrow key always goes to
+            // the top link.
+            if (hideOriginalLink && characterNextLinks.includes(originalNextLink)) {
+              if (x2Combo) hideFirstLinkWithCSS = true
+              else archive.mspa.story[pageString].next.pop()
             }
 
             // Each Character data
