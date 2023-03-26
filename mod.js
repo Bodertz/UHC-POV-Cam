@@ -24,7 +24,13 @@ module.exports = {
       model: "disableHover",
       label: "Always display character names",
       desc: "Always display each timeline's character name instead of viewing them by hovering with your mouse."
-    },{
+    },
+    {
+      model: "hideOriginalLink",
+      label: "Hide original next page link",
+      desc: "If one or more characters link to the next page, hide the original link to the next page."
+    },
+    {
       model: "Kids",
       label: "Disable Beta Kids timelines",
     },
@@ -105,10 +111,13 @@ module.exports = {
 
         let collideStyle = ""
         let act7Style = ""
+        let hideOriginalLink = api.store.get("hideOriginalLink", false)
+        const tereziRetconPages = [8948, 8132, 3938, 4476, 5270, 5610, 5622, 5736].map(page => toPageString(page))
 
         // For each page in homestuck
         for (let i = 1901; i < 10028; i++) {
           const pageString = toPageString(i)
+          const tereziRetconPage = tereziRetconPages.includes(pageString)
           // if the page exists (prevents certain errors)
           if (archive.mspa.story[pageString] && povData.timelines[String(i)]) {
 
@@ -121,6 +130,33 @@ module.exports = {
 
             let collide = pageString == 9987
             let act7 = pageString == 10027
+
+            let characterNextLinks = []
+            let originalNextLinks = archive.mspa.story[pageString].next
+            let originalNextLink
+
+            if (tereziRetconPage)
+              originalNextLink = originalNextLinks.length == 2 ? archive.mspa.story[pageString].next[1] : false
+            else
+              originalNextLink = originalNextLinks.length == 1 ? archive.mspa.story[pageString].next[0] : false
+
+            if (hideOriginalLink && !x2ComboLeftPage) {
+              for (let j = 0; j < pageLinkDataList.length; j++) {
+                let linkData = pageLinkDataList[j]
+
+                // if character group is not hidden, add character's next links
+                if (!api.store.get(povData.groups[linkData[3]])) {
+                  if (!linkData[4][0]) linkData[4][0] = [parseInt(pageString)]
+                  for (let k = 0; k < linkData[4].length; k++) {
+                    characterNextLinks.push(toPageString(linkData[4][k][0]))
+                  }
+                }
+              }
+
+              // Remove original next link if it's the same as a character's
+              if (characterNextLinks.includes(originalNextLink) && pageString != 7825) // End of A6A5A1x2, kbd right arrow goes to top of array(?)
+                archive.mspa.story[pageString].next.pop()
+            }
 
             // Each Character data
             for (let j = 0; j < pageLinkDataList.length; j++) {
