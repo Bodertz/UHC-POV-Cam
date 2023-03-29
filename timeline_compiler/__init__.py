@@ -20,7 +20,7 @@ def compile_timelines(timelines_directory, expected_timelines_path, images_direc
 
     with open(expected_timelines_path, "r") as people_file:
         expected_timeline_paths = [
-            '{}.txt'.format(line.strip()) for line in people_file if line.strip()
+            '{}.txt'.format(line.strip()) for line in people_file if line.strip() and not line.startswith('#')
         ]
 
     timeline_paths = [
