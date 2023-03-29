@@ -1,0 +1,71 @@
+Name: Ace Dick
+Colour: #000000
+Image: problem-sleuth.png
+Group: Problem Sleuth
+
+Be spied on by Problem Sleuth
+310-316
+
+Be tied to chair
+351
+353-354
+
+Get piece of glass from Problem Sleuth
+358
+
+You are now Ace Dick
+Be locked in office
+359-370
+
+372
+
+377-379
+
+Examine notes passed by PS
+380
+
+Unlock safe
+381-383
+
+Spy on PS being Candy Corn Vampire
+384
+
+Do stuff
+385-394
+
+Be candy corn vampire, sort of
+396
+
+Leave safe
+397-402
+
+Go up dumbwaiter
+403
+
+Exit dumbwaiter
+Go outside
+406-411
+
+Spy in PI's office
+411-412
+
+Realize you're on the other side of an unpowered window
+See beast
+413-414
+
+Address beast situation
+417
+
+==>
+	Do the truffle shuffle
+	418
+
+Actually, don't
+419-420
+
+Go back in office
+Go into fort
+421-424
+
+Be in imaginary office
+425

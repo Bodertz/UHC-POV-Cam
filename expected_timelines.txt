@@ -1,3 +1,5 @@
+# Homestuck
+
 john
 rose
 dave
@@ -98,3 +100,8 @@ meenah
 calliope
 caliborn
 lordenglish
+
+
+# Problem Sleuth
+
+problem-sleuth

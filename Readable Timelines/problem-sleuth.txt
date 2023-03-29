@@ -1,0 +1,75 @@
+Name: Problem Sleuth
+Colour: #000000
+Image: problem-sleuth.png
+Group: Problem Sleuth
+
+Be introduced
+Be locked in office
+Do stuff
+219-309
+
+Spy on Ace Dick
+310-316
+
+Drink
+317-322
+
+Be in imaginary office
+323-327
+
+Leave present in Ace Dick's imaginary office
+328-330
+
+Go outside
+331-335
+
+Be unimaginative
+336-348
+
+Spy on Pickle Inspector
+349-350
+
+Spy on Ace Dick tied to chair
+351
+
+REJOICE!
+352
+
+Retrieve items from outside (FIXME)
+355-356
+
+Give Ace Dick piece of glass
+357-358
+
+Be not waiting in the dumbwaiter
+371
+
+Be back in office, about to maybe climb through window
+373
+==>
+	Be dead
+	374
+	
+	393
+
+Decide not to climb out window
+375-376
+
+Go into dumbwaiter
+379
+
+Be Candy Corn Vampire
+384
+
+Look through clown picture at AD
+395-396
+
+
+Be at dumbwaiter after AD goes up
+Partially repair phone
+404-405
+
+Try to tell PI to turn on window
+Drink whiskey
+415
+416
