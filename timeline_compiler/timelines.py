@@ -11,10 +11,12 @@ class Timelines:
         "<==": re.compile("^<=+$"),
         "GOTO": re.compile("^~\s*[\w ()'^]+$", re.IGNORECASE),
         "Name": re.compile("^Name:\s*[\w ()'^]+$", re.IGNORECASE),
+        "Name Override": re.compile("^Name Override:\s*[\w ()'^]+$", re.IGNORECASE),
         "Colour": re.compile("^Colour:\s*#[0-9A-F]{6}$", re.IGNORECASE),
+        "Colour Override": re.compile("^Colour Override:\s*#[0-9A-F]{6}$", re.IGNORECASE),
         "Image": re.compile("^Image:\s*\w+\.\w+$", re.IGNORECASE),
+        "Image Override": re.compile("^Image Override:\s*\w+\.\w+$", re.IGNORECASE),
         "Group": re.compile("^Group:\s*[\w ()']+$", re.IGNORECASE),
-        "Caption": re.compile("^Caption:\s*[\w ]+$", re.IGNORECASE)
     }
 
     def __init__(self):
@@ -64,7 +66,7 @@ class Timelines:
             elif pattern_match == "GOTO":
                 yield (pattern_match, potential_command[1:].strip())
 
-            elif pattern_match in {"Name", "Colour", "Image", "Group", "Caption"}:
+            elif pattern_match in {"Name", "Name Override", "Colour", "Colour Override", "Image", "Image Override", "Group"}:
                 yield (pattern_match, potential_command.split(":")[1].strip())
 
             else:
@@ -75,7 +77,7 @@ class Timelines:
     def add_timeline(self, timeline_file_location):
         self.exec_timeline_tokens(self.tokenize_timeline_file(timeline_file_location))
 
-    def exec_timeline_tokens(self, command_iterator, previous_pages=None, current_person=None, current_colour=None, current_image=None, current_group=None, next_caption=None):
+    def exec_timeline_tokens(self, command_iterator, previous_pages=None, current_person=None, current_colour=None, current_image=None, current_group=None, current_overrides=None):
         # Page to pass into next splinter timeline
         splinter_pages = []
         # Page returned from splinter timeline
@@ -83,6 +85,9 @@ class Timelines:
 
         if previous_pages is None:
             previous_pages = []
+
+        if current_overrides is None:
+            current_overrides = [[] for _ in range(4)]
 
         for command, *args in command_iterator:
             if command == "Pages":
@@ -95,9 +100,9 @@ class Timelines:
                     self.next_page_links[page_number].append(next_link)
 
                     for page in previous_pages:
-                        page.link_to(next_link, next_caption)
+                        page.link_to(next_link, current_overrides)
                     previous_pages = [next_link]
-                    next_caption = None
+                    current_overrides = [[] for _ in range(4)]
 
             elif command == "==>":
                 splinter_pages = previous_pages
@@ -123,20 +128,26 @@ class Timelines:
             elif command == "Name":
                 current_person = self.get_person(args[0])
 
+            elif command == "Name Override":
+                current_overrides[0] = args[0]
+
             elif command == "Colour":
                 if not args[0] in self.colours:
                     self.colours.append(args[0])
                 current_colour = self.colours.index(args[0])
+
+            elif command == "Colour Override":
+                current_overrides[1] = args[0]
 
             elif command == "Image":
                 if not args[0] in self.images:
                     self.images.append(args[0])
                 current_image = self.images.index(args[0])
 
+            elif command == "Image Override":
+                current_overrides[2] = args[0]
+
             elif command == "Group":
                 if not args[0] in self.groups:
                     self.groups.append(args[0])
                 current_group = self.groups.index(args[0])
-
-            elif command == "Caption":
-                next_caption = args[0]

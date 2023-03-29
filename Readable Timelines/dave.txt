@@ -221,7 +221,7 @@ nak nak nak
 
 Be woken by Jade teleporting past
 4901
-Caption: Sleeping
+Name Override: Dave (sleeping)
 
 Talk with Rose about horrorterrors
 Learn of the Green Sun, the Tumor
@@ -253,7 +253,7 @@ Make a goddamn killing in the LOHACSE.
 
 See Jade teleport past in LOHACSE
 4901
-Caption: In LOHACSE
+Name Override: In LOHACSE
 
 Wire money to Terezi
 4642
@@ -272,7 +272,7 @@ Console Jade about your death
 
 See Jade teleport past on LOFAF
 4901
-Caption: On LOFAF
+Name Override: On LOFAF
 
 Talk to Jade about her moving through space and you, time
 Deploy laserstation
