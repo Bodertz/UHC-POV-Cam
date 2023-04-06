@@ -1,4 +1,4 @@
-let toPageString = pageNumber => pageNumber < 10000 ? `00${pageNumber}` : `0${pageNumber}`
+let toPageString = pageNumber => String(pageNumber).padStart(6, '0')
 
 module.exports = {
   title: "Homestuck POV Cam Port", 
@@ -115,10 +115,10 @@ module.exports = {
         const tereziRetconPages = [8948, 8132, 3938, 4476, 5270, 5610, 5622, 5736].map(page => toPageString(page))
 
         // For each page in homestuck
-        for (let i = 1901; i < 10028; i++) {
+          for (const i in povData.timelines) {
           const pageString = toPageString(i)
           // if the page exists (prevents certain errors)
-          if (archive.mspa.story[pageString] && povData.timelines[String(i)]) {
+          if (archive.mspa.story[pageString]) {
 
             let pageLinkDataList = povData.timelines[String(i)]
             let LinkStyle = ""
