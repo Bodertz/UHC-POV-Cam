@@ -1,6 +1,6 @@
 Name: Problem Sleuth
 Colour: #000000
-Image: problem-sleuth.png
+Image: problemsleuth.png
 Group: Problem Sleuth
 
 Be introduced

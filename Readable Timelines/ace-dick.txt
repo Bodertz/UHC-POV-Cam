@@ -1,6 +1,6 @@
 Name: Ace Dick
 Colour: #000000
-Image: problem-sleuth.png
+Image: problemsleuth.png
 Group: Problem Sleuth
 
 Be spied on by Problem Sleuth
